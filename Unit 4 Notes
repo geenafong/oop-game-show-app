@@ -1,0 +1,606 @@
+Object Oriented Javascript
+What is an object? package of information that you want to use in your code, group of prop(key value pairs) and func(method) used
+Objects have states and behaivors ---JavaScripts objects have properties and methods
+    An object's states are represented by properties and its behaivors are represented by methods.
+Objects we are used to...
+The DOM- object that represents the HTML elements
+Arrays are also objects
+appendChild() is a method, not a property. You can tell because, like all methods and functions, it's followed by a set of parentheses.
+
+Object Literals and Components of Objects
+Object literals are an important foundation for understanding object-oriented programming in JavaScript. Get to know object literals and the different components of objects.
+when modeling one specific thing
+To create an object literal of a dog:
+const ernie = {
+    animal: 'dog',
+    age: 1,
+    breed: 'pug',
+    bark: function(){
+        console.log('Woof!');
+    }
+}
+console.log(ernie.age);
+console.log(ernie['age'])
+ernie.bark
+animal, age, breed = properties... bark= method
+Encapsulation: putting all of these properties and methods into a package is called incapsulation
+
+--Dot Notation and Bracket Notation
+Dot notation: 
+ const fruits = ['apple' , 'pear', 'strawberry'];
+ fruitsLength = fruits.length;
+Bracket Notation:
+ fruits[0];
+ var prop='breed';
+ ernie[prop];
+
+ --Changing and Adding properties
+ ernie.age=2;
+ ernie['age']=2;
+ ernie.color= 'black';
+ console.log(ernie);
+
+When Object Literals arent enough
+Classes
+when to create multiple
+Javascript Class Syntax (suntatic sugar), but using prototype syntax under the hood
+
+Writing a Class
+These are all its own object literal:
+const ernie = {
+    animal: 'dog',
+    age: '1',
+    breed: 'pug',
+    bark: function(){
+        console.log('Woof!');
+    }
+}
+
+const vera = {
+    animal: 'dog',
+    age: 8,
+    breed: 'Border Collie',
+    bark: function(){
+        console.log('Woof!');
+    }
+}
+
+const scofield = {
+    animal: 'dog',
+    age: 6,
+    breed: 'Doberman',
+    bark: function(){
+        console.log('Woof!');
+    }
+}
+
+const edel = {
+    animal: 'dog',
+    age: 7,
+    breed: 'German Shorthaired Pointer',
+    bark: function(){
+        console.log('Woof!');
+    }
+}
+create a class: Use a capital letter for class variable
+Constructer method goes at the top, inside a class that outlines the properties, can pass in parameters class is blue print, object is the factory based on the blueprint
+Adding properties inside this.name of property
+class Pet {
+ constructer(animal, age, breed) {
+   this.animal = animal;
+   this.age = age;
+   this.breed = breed;
+ }
+}
+
+--Instantialting a Pet Object
+const ernie = new Pet('dog', 1, 'pug');
+const vera = new Pet('dog', 8, 'border collie');
+console.log(ernie);
+
+--Adding methods to our class
+class Pet {
+ constructer(animal, age, breed, sound) {
+   this.animal = animal;
+   this.age = age;
+   this.breed = breed;
+   this.sound = sound;
+ }
+speak() {
+ console.log(this.sound);
+}
+}
+const ernie = new Pet('dog', 1, 'pug', 'yip yup');
+const vera = new Pet('dog', 8, 'border collie', 'woof woof');
+
+ernie.speak();
+vera.speak();
+
+In quiz
+addCourse(course){
+    this.courses.push(course);
+}
+
+Getters- increase flexibility
+class Pet {
+ constructer(animal, age, breed, sound) {
+   this.animal = animal;
+   this.age = age;
+   this.breed = breed;
+   this.sound = sound;
+ }
+get activity(){
+    const today = new Date();
+    const hour = today.getHours();
+
+    if ( hour > 8 && hour <=20){
+        return 'playing';
+    } else{
+      return 'sleeping';
+    }
+}
+
+speak() {
+ console.log(this.sound);
+}
+}
+
+Setters
+Always recieve exactly one parameter
+A setter method is used when you need to add logic when updating a property valuse
+get owner(){
+    return this._owner;
+}
+set owner(name){
+    this._owner=owner
+    console.log('setter called: ${owner}');
+}
+ernie.owner = 'Ashley';
+console.log(ernie.owner);
+
+set major(major) {
+  if (this.level === 'Senior' || this.level === 'Junior') {
+    this._major = major;
+  } else {
+    this._major = 'none';
+  }
+}
+Object Interaction
+class Owner {
+    construction(name,address) {
+        this.name = name;
+        this.address = address;
+    }
+}
+set phone(phone){
+    const phoneNormalized = phone.replace(/[^0-9]/g, '');
+    this._phone = phoneNormalized
+}
+get phone(){
+    return this._phone;
+}
+ernie.owner = new Pwner('Ashley', '123 Main Street');
+ernie.owner.phone = '(555) 555-5555';
+
+--Callback functions in JavaScript
+called by the computer at a given time in the future
+can be run over and over again
+synchronise programming-- when you tell the computer to do something, it does at that time
+asynchronise programming--the computer waits to do something until it is called to do so.
+Callback uses
+    One off and repeating timers
+    Triggerd by a user Interaction
+    Loading data from server using AJAX
+    Opening files in Node.js
+What is a callback? 
+    A function passed into another function as a parameter
+    Dont use parantheses when passing in the function into another function
+    function callbackFunction(){
+        //do something
+    }
+    function executeCallback(callback){
+        //do something
+    }
+    executeCallback(callbackFunction);
+Examples of Callbacks
+onClick(showHint);
+everySecond(tickClock);
+readFile("myStory.txt", printStory);
+function sayHello() {
+    console.log('Hello');
+}
+
+function executeCallback(callback){
+ callback(); 
+}
+
+executeCallback(sayHello);
+
+-- Anonymous functions- function without a name
+function executeCallback(callback){
+ callback(); 
+}
+
+//Print Hello
+executeCallback(function () {
+    console.log('Hello');
+});
+Anonymous Functions as Arrow Functions
+executeCallback(() => console.log('Hello'));
+});
+
+--Using a One-Off Timer with setTimeout
+setTimeout(callback, display);
+const surpriseSection = document.getElementById('surprise');
+function showSurprise() {
+    surpriseSection.textContent = '🎉 Surprise! 🎉';
+}
+const randomTime = Math.random() * 4000;
+setTimeout=>( ()surpriseSection.textContent = '🎉 Surprise! 🎉', randomTime);
+
+--Repeat Timer with setInterval
+const clockSection = document.getElementById("clock");
+
+function getTime() {
+  function pad(number) {
+    if (number < 10) {
+      return "0" + number;
+    } else {
+      return number;
+    }
+  }
+  const now = new Date();
+
+  const hh = pad(now.getHours());
+  const mm = pad(now.getMinutes());
+  const ss = pad(now.getSeconds());
+
+  return `${hh}:${mm}:${ss}`;
+}
+
+function tickClock() {
+  clockSection.textContent = getTime();
+}
+
+tickClock();
+setInterval(tickClock, 1000);
+
+Call back with arguments
+const div1 = document.getElementById('first');
+const div2 = document.getElementById('second');
+const div3 = document.getElementById('third');
+
+function makeRed(element) {
+    element.style.backgroundColor = "red";
+}
+
+function makeBlue(element) {
+    element.style.backgroundColor = "blue";
+}
+
+function addStyleToElement(element, callback) {
+    callback(element);
+}
+addStyleToElement(div1, makeRed);
+addStyleToElement(div2, makeBlue);
+
+Using Callbacks on Text Inputs
+element.addEventListener(eventType, callback);
+Event handler: properties: event.type and event.target-element
+function(event){
+    //do something
+}
+const nameInput = document.getElementById('name');
+const messageTextArea = document.getElementById('message');
+
+MORE Consice
+const focusHandler = event => {
+  event.target.className = 'highlight';
+};
+const blurHandler = event => {
+  event.target.className = '';
+};
+newInput.addEventListener('focus', focusHandler);
+newInput.addEventListener('blur', blurHandler);
+
+messageTextArea.addEventListener('focus', focusHandler);
+messageTextArea.addEventListener('blur', blurHandler);
+BETTER THAN
+nameInput.addEventListener('focus', event => {
+  event.target.className = 'highlight';
+});
+
+nameInput.addEventListener('blur', event => {
+  event.target.className = '';
+});
+
+messageTextArea.addEventListener('focus', event => {
+  event.target.className = 'highlight';
+});
+
+messageTextArea.addEventListener('blur', event => {
+  event.target.className = '';
+});
+
+Conclusion
+Functions are referred to first class objects in Javascript(can be passed around like any other variable)
+
+JavaScript Array Iteration Methods
+Array overview
+A JavaScript array is a list-like object. You can use arrays to store any kind of data in a sequence, like a list.
+Iteration-act of reading an array's elements one by one
+Indices-identify position in an array array[0]
+
+`for` vs forEach
+const fruits = ['apple', 'pear', 'cherry'];
+
+for (let i = 0; i < fruits.length; i += 1 ) {
+ console.log(fruits[i]);
+}
+
+fruits.forEach(fruit => console.log(fruit));
+
+The Good:
+    Easier to read and understand
+    Bug easier to avoid
+        Inifitite loops impossible
+        Avoids incrementing mistakes
+        Wrong condition
+The Bad:
+    Cant break out early
+        rare that youd need to, but use for or while
+
+Examples using forEach()
+const fruits = ['apple', 'pear', 'cherry'];
+let capitalizedFruits = [];
+
+fruits.forEach(fruit => {
+ let capitalizedFruit = fruit.toUpperCase();
+ capitalizedFruits.push(capitalizedFruit);
+});
+
+console.log(capitalizedFruits);
+
+const prices = [6.75, 3.10, 4.00, 8.12]; // Total: 21.97
+let total = 0;
+
+prices.forEach(price => {
+ total += price;
+});
+
+console.log(total);
+
+const names = ['Selma', 'Ted', 'Mike', 'Sam', 'Sharon', 'Marvin']; 
+// Result: ['Selma', 'Sam', 'Sharon'];
+
+let sName = [];
+
+names.forEach(name => {
+  if (name.charAt(0) === 'S') {
+   sNames.push(name); 
+  }
+});
+
+console.log(sNames);
+
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+let dayAbbreviations = [];
+
+// dayAbbreviations should be: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+// Write your code below
+days.forEach(day => {
+    dayAbbreviations.push(day.substring(0,2));
+});
+
+forEach() `index` and `array` Parameters
+ can add in the index and array parameters
+ names.forEach((name, index) => console.log(`${index +1} ${name}`));
+
+ Javascript Array Iteration methods
+ Remove Array Items with filter()
+returns a new array
+['A', 'B', 'C']. filter((letter) => {return letter !== 'B'})
+
+const names = ['Selma', 'Ted', 'Mike', 'Sam', 'Sharon', 'Marvin'];
+const sNames = names.filter(name => {
+    if (name.charAt(0) === 'S'){
+        return true;
+    } else {
+        return false;
+    }
+})
+SAME AS
+const names = ['Selma', 'Ted', 'Mike', 'Sam', 'Sharon', 'Marvin'];
+const startsWithS = name => (name.charAt(0) === 'S')
+const sNames = names.filter(startsWithS);
+
+const no 3 = numbers.filter(number => number !==3);
+
+Transform Array Items with map()
+const strings = ['1','2','3','4','5'];
+const numbers = strings.map(string => parseInt(string, 10));
+
+const fruits = ['apple', 'pear', 'cherry'];
+
+let capitalizedFruits = [];
+
+fruits.forEach(fruit => {
+  let capitalizedFruit = fruit.toUpperCase();
+  capitalizedFruits.push(capitalizedFruit);
+});
+
+console.log(capitalizedFruits);
+
+const capitalizedfruits = fruits.map(fruit => fruit.toUpperCase);
+
+const prices = [5, 4.23, 6.4, 8.09, 3.20];
+
+    // Result: [ '$5.00', '$4.23', '$6.40', '$8.09', '$3.20' ]
+const priceToDollars = price => `$${price.toFixed(2)}`);
+const displayPrices = prices.map(pricesToDollars);
+
+Return a single Value from an Array with reduce()
+turns all items into one value
+var total = [0,1,2,3].reduce(
+     (acc,cur)=> acc+cur,
+     0
+);
+acc=accumalator- contains the running total (like a basket with grociers in it).
+cur= array item
+0 sets value of the first time of the array
+
+const prices = [6.75, 3.10, 4.00, 8.12]; // Total: 21.97
+const total = prices.reduce((sum,price) => sum+price),0{
+})
+
+const names = ['Gary', 'Pasan', 'Gabe', 'Treasure', 'Gengis', 'Gladys', 'Tony'];
+const namesG = names.reduce((count, name) =>{
+ if(name[0] ==='G'){
+     return count +1;
+ }
+ return count;
+}, 0);
+console.log(namesG);
+
+Chaining Array Methods
+const arr = [1,2,3];
+const smallerArr = arr.filter(number => number !== 2).map(number => number + 1);
+console.log(incrementedArr); // => [2,4]
+filter array and then map it with a new array
+
+Removing Duplicates from an Array
+To remove duplicate elements from an array, we can use filter(). Remember, the filter method provides three parameters to our callback function: the current element being processed in the array, the index of the current element being processed in the array, and the array filter() was called upon.
+We can compare the index of the current element to the index of the current element in the array that filter() was called upon to determine if we've already encountered that element value. This works because the indexOf method will return the index of the first occurrence that is found in the array. So, indexes of duplicate elements will not equal the index of the first occurrence of their values.
+const numbers = [1, 1, 2, 3, 4, 3, 5, 5, 6, 7, 3, 8, 9, 10];
+const unique = numbers.filter(function(number, index, array) {
+  return index === array.indexOf(number);
+});
+
+console.log(unique); // => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+Working with Objects in Arrays
+const users = [
+  {name: 'Samir', age: 27},
+  {name: 'Angela', age: 33},
+  {name: 'Beatrice', age: 42}
+];
+const newUsersArray = users.filter(user => user.name !== 'Samir'); --deletes this name
+To use  map to create this: 'Samir is 27 years old.'
+const nameAge = users.map(user => user.name + "is" + user.age + "years old");
+const nameAge = users.map(user => `${user.name} is ${user.age} years old.`);
+
+new object should look like this: Samir:47, Angela: 33, Beatrice: 42
+const nameAge = users.reduce(((usersObject, user) =>{
+    usersObject[user.name]=user.age;
+    return usersObject;
+}, {});
+
+Combining filter() and map()
+const users = userNames
+ .filter(name => name.charAt(0)== 'S')
+ .map(name => ({ name }));
+
+const users = [
+  {name: 'Samir', age: 27},
+  {name: 'Angela', age: 33},
+  {name: 'Beatrice', age: 42},
+  {name: 'Shaniqua', age: 30},
+  {name: 'Marvin', age: 23},
+  {name: 'Sean', age: 47}
+];
+
+    // Result: ['Angela', 'Beatrice', 'Shaniqua', 'Sean'];
+const users = userNames
+ .filter(name => name >= 30)
+ .map(name => user.name);
+
+ Combining filter() and reduce()
+ 
+ const products = [
+  { name: 'hard drive', price: 59.99 },
+  { name: 'lighbulbs', price: 2.59 },
+  { name: 'paper towels', price: 6.99 },
+  { name: 'flatscreen monitor', price: 159.99 },
+  { name: 'cable ties', price: 19.99 },
+  { name: 'ballpoint pens', price: 4.49 }
+];
+const product = products
+  .filter(product => product.price < 10)
+  .reduce((highest, product) => {
+      if (highest.price > product.price) {
+          return highest;
+      }
+      return product;
+  })
+  (Spoiler Alert! Continue reading only if you've watched the whole video!)
+The following solution is NOT RECOMMENDED, but will hopefully offer some insight into how the reduce method works. To create an initial value for the first problem, I would have had to construct a dummy object with a price property set to zero, so the highest parameter would have had a price property to read in the if statement.
+
+const product = products
+  .filter(product => product.price < 10)
+  .reduce((highest, product) => {
+    if (highest.price > product.price) {
+      return highest;
+    }
+    return product;
+  }, { price: 0 });
+Someone else trying to understand my code might have been confused as to why a dummy object was there, and what purpose it served. In this case it makes more sense to let reduce initialize the highest parameter with the first product from the array.
+
+const total = products
+ .filter(product => product.price > 10)
+ .reduce((sum , product) => sum + product.price, 0)
+ .toFixed(2);
+
+ Nested Data and Additional Exploration
+ const movies = [
+  ['The Day the Earth Stood Still', 'Superman', 'Ghostbusters'],
+  ['Finding Dory'],
+  ['Jaws', 'On the Waterfront']
+];
+
+const flatMovies = movies.reduce((arr, innerMovies) => [...arr, ...innerMovies, []);
+
+const movies = [
+  ['The Day the Earth Stood Still', 'Superman', 'Ghostbusters'],
+  ['Finding Dory'],
+  ['Jaws', 'On the Waterfront']
+]
+
+    // Result: ['The Day the Earth Stood Still', 'Superman', 'Ghostbusters', 'Finding Dory', 'Jaws', 'On the Waterfront']
+const users = [
+  {
+    name: 'Samir',
+    age: 27,
+    favoriteBooks:[
+      {title: 'The Iliad'},
+      {title: 'The Brothers Karamazov'}
+    ]
+  },
+  {
+    name: 'Angela',
+    age: 33,
+    favoriteBooks:[
+      {title: 'Tenth of December'},
+      {title: 'Cloud Atlas'},
+      {title: 'One Hundred Years of Solitude'}
+    ]
+  },
+  {
+    name: 'Beatrice',
+    age: 42,
+    favoriteBooks:[
+      {title: 'Candide'}
+    ]
+  }
+];
+
+    // Result: ['The Iliad', 'The Brothers Karamazov', 'Tenth of December', 'Cloud Atlas', 'One Hundred Years of Solitude', 'Candide'];
+
+const books = users
+ .map(user => user.favoriteBooks.map(book => book.title))
+ .reduce((arr, titles) => [...arr, ...titles], [])
+
+ Object Oriented Javascript BY Example
+ Classes
+game, player, board, space, token, can be represented by a class
+
+
