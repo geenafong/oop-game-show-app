@@ -2,26 +2,31 @@ class Phrase {
   constructor(phrase){
     this.phrase = phrase
   }
+    //to create empty boxes for the chosen phrase
     addPhraseToDisplay(){
-        let phrase = 'hippopotamus'
-        for(let x = 0, c=''; c = phrase.charAt(x); x++){ 
-        $('#phrase ul').append("<li class='hide letter'" + c + '>' + c + '</li>');
+      for(let x = 0, c=''; c = this.phrase.charAt(x); x++){ 
+        if (this.phrase.charAt(x) === ' ') {
+          $('#phrase ul').append("<li class='hide space'</li>");
+        } else {
+          $('#phrase ul').append("<li class='hide letter'" + c + '>' + c + '</li>');
         }
+      }
+        
+        
     };
-}
 
-//     new Phrase(phrase);
+    //checks to see if the letter selected is a letter within the phrase
+    checkLetter(letter){
+      return this.phrase.includes(letter);
 
-    // checkLetter(){
-    //     let checkedLetter= false
-    //     $('#qwerty button').click(function(){
-    //       if($('.key').val() == $('#phrase li').val()){
-    //         console.log('o');
-    //         checkedLetter = true;
-    //       } 
-    //     });
+    };
+    
+    //if the letter chosen does match one in the phrase, then the letter is shown
+    showMatchedLetter(){
+        return currentPhrase.find(letter => letter === key);
+      }
 
-    // // }
+};
 
   
     
