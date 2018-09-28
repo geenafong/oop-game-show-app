@@ -40,35 +40,27 @@ class Game{
     //removeLife(): this method removes a life, removes a heart from the board, and, if the player is out of lives, ends the game.
     removeLife(){
         this.missed +=1
-       $('#scoreboard img:first').remove();
-       
+        $('.tries').eq([this.missed]).hide();
+       if (this.missed === 5) {
+        this.gameOver();
+       }
     }
 
     // //checkForWin(): this method checks to see if the player has selected all of the letters.
      checkForWin(){
-         if($('.rightLetter').length === $('.letter').length){
+        if($('.rightLetter').length === $('.letter').length){
+           $('#game-over-message').text('You Win!');
+            $('#overlay').prop('className', 'win');
             $('#overlay').show();
-            // $('#game-over-message').text('You Win!');
-            //  $('#overlay').addClass('win');
-            //  $('#overlay').attr('');
-         } else {
-                this.gameOver();
-            }
         }
-         
+       }
+        
 
-     //gameOver(): this method displays a message if the player wins or a different message if they lose.
-     gameOver(){
-        let letters = $('.rightLetter');
-         if(letters.length === 0){
-             $('#game-over-message').text('You Win!');
-             $('#overlay').addClass('win');
-             $('#overlay').attr('');
-         } else if(this.missed === 5){
-            $('#game-over-message').text('You Lose!');
-            $('#overlay').addClass('lose');
-            $('#overlay').attr('');
-         }
-     }
+    //gameOver(): this method displays a message if the player wins or a different message if they lose.
+    gameOver(){
+           $('#game-over-message').text('You Lose!');
+           $('#overlay').prop('className', 'lose');
+           $('#overlay').show();
+        }
 
 }

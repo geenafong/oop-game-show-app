@@ -11,6 +11,9 @@ let game = new Game(0,phrases);
 // resetDisplay(): this function hides the start screen overlay.
 function resetDisplay(){
     $('#overlay').hide();
+    $('#phrase li').remove();
+    $('.key').prop("className", "key").css("background", "#D2D2D2");
+    $('.tries').show();
 }
 
 // Add an event listener to the "Start Game" button which calls the resetDisplay() function, creates a new Game object, and starts the game.
@@ -26,11 +29,9 @@ function markButton(){
     game.handleInteraction();
 }
 
-$('.key').click(function(){
-    markButton();
-});
 
 
+markButton();
 
 
 
