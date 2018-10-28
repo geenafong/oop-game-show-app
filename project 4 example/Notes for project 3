@@ -1,0 +1,434 @@
+HTML Forms
+--Overview of Forms
+form element- wraps all other elements into our formin index.HTML
+<form></form>
+2 important attributes to form element action
+<form action= "index.html" method ="">
+post(HTTP POST method) or get(HTTP GET method) are possible values to put into method
+--The input element
+most commonly form element (is a self closing tag)
+<input type="text" id="name" name="user_name">
+<input type="email" id="mail" name="user_email">
+<input type="password" id="password" name="user_password">
+type- attribute indicates what kind of input we want- many options such as email tel and password
+id- not required but helpful when targeting items with css and JS, need to associate labels with specific form controls
+name- needed so when a form is submited to server side code, server can process values appropriately
+--The Textarea element
+Ex: for users to write a bio about themselves:
+<textarea id="bio" name="user_bio"></textarea> (not a self closing tag)
+<textarea id="comment" name="user_comment"></textarea>
+--The Button element
+<button type="submit">Sign Up</button>
+two other types of button, reset(automatically clear all information when clicked) and button (no intended behaivor, to be used with JS)
+submit(submit form and send all information to server)
+--The Label Element
+<label for ="name">Name:</label>
+<input type="text" id="name" name="user_name">
+<label for="mail">Email:</label>
+<input type="email" id="mail" name="user_email">
+<label for="password">Password:</label>
+<input type="password" id="password" name="user_password">
+<label for="bio">Biography</label>
+<textarea id="bio" name="user_bio"><</textarea>      
+--Fieldsets and legends
+Provides titles for distinct sections
+       <fieldset>
+        <legend><span class="number">1</span>Your basic info</legend>
+        <label for ="name">Name:</label>
+        <input type="text" id="name" name="user_name">
+        <label for="mail">Email:</label>
+        <input type="email" id="mail" name="user_email">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="user_password">
+       </fieldset>
+     
+       <fieldset>
+        <legend><span class="number">1</span>Your profile</legend>
+        <label for="bio">Biography</label>
+        <textarea id="bio" name="user_bio"><</textarea> 
+       </fieldset>
+--Select Menus
+optionvalue-puts values in the list
+opt group- groups them by a category
+<label for="job">Job role:</label>
+         <select id="job" name="user_job">
+          <optgroup label="Web">
+            <option value="frontend_developer">Front-End Developer</option>
+            <option value="php_developer">PHP Developer</option>
+            <option value="python_developer">Python Developer</option>
+            <option value="rails_developer">Rails Developer</option>
+            <option value="web_designer">Web Designer</option>
+            <option value="wordpress_developer">Word Press Developer</option>
+            </optgroup>
+          <optgroup label="Mobile">
+           <option value="android_developer">Android Developer</option>
+           <option value="ios_developer">IOS Developer</option>
+           <option value="mobile_developer">Mobile Developer</option>
+            </optgroup>
+          <optgroup label="Business">
+           <option value="business_owner">Business Owner</option>
+           <option value="freelancer">Freelancer</option>
+            </optgroup>
+--Radio--show all options at once (good for 5 and less options)
+<input type="radio" id="under_13" value="under_13" name="user_age"><label for="under_13" class="light">Under 13</label><br>
+<input type="radio" id="over_13" value="over_13" name="user_age"><label for="over_13" class="light">13 or older</label>
+since name attributes are the same, you cannot choose both options (part of the same group)
+if you cange the name attributs, then you can choose both
+--Checkboxes
+</select>
+<label>Interests:</label>
+<input type="checkbox" id="development" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
+<input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
+<input type="checkbox" id="business" value="interest_business" name="user_interest"><label class="light" for="business">Business</label>
+
+</fieldset>
+
+---jQuery Basics
+What is jquery?
+helps add interactivy to webpage, makes DOM easier
+different browsers didnt do the same thing with javascript
+jquery vs. JS
+JS
+const box= document.querySelector('.box');
+box.style.display. = 'none';
+
+jQuery--$ is a substitute for jQuery
+jQuery('.box').hide();
+$('.box').hide();
+$('.box').show();
+
+const box= document.querySelector('.box');
+box.addEventListener('click', function(){
+    alert('You clicked me')
+})
+
+$('.box').click(function(){
+    alert('You clicked me')
+})
+--Animating Elements with jQuery
+visibility methods: fadeIn() fadeOut() slideIn() slideOut() delay()
+#-select id, .-select class
+
+$('#flashMessage').hide();
+$('#flashMessage').fadeIn(2000);-forces the fade to wait 2 seconds
+$('#flashMessage').delay(3000);-allows 3 seconds for viewer to see it and then disappears
+$('#flashMessage').slidedUp();
+
+same as:
+$('#flashMessage').hide().fadeIn(2000).delay(3000).slidedUp();
+
+--Blog Previwer: Changing Content Inside Elements
+ $('#element').text(); 
+ $('#element').html();-- without arguments//getter becuse it gets a value
+ $('#element').html("<p> I am setting this HTML!</p>"); //setter bc it sets a value
+$('.blogPage-title').text();-- get the title 
+$('.blogPage-title').html();--all html nested within that element
+
+const title = "My First Blog Post";
+const content = "This is my <strong>first</strong> post!";
+
+$('#blogTitlePreview').text(title);
+$('#blogContentPreview').html(content);
+
+--Blog Previewer:Getting Values from Form Fields
+$('#flashMessage').hide();
+
+$('#previewButton').click(function()){
+   const title = $('#blogTitleInput').val();
+   const content = $('#blogContentInput').val();
+   $('#blogTitlePreview').text(title);
+   $('#blogContentPreview').html(content);
+
+   $('#flashMessage').fadeIn(2000).delay(3000).slidedUp();
+}); 
+
+Test:
+// 1. Show the hidden restaurant review, or use an animation method to reveal it. 
+$(.review).fadeIn();
+
+// 2. Set the title of the hidden restaurant review to a different name -- whatever you'd like.  
+$(.review h3).text("Secret Restauraunt");
+
+// 3. Change the text of the hidden restaurant review. The review should contain HTML, such as a strong tag or a span element. 
+const newReview = "It was <span>mediocre</span>..."
+$(.review p).html(newReview);
+
+// 4. Change the name of the app. Change *only* the text inside the span element within the h1. 
+$('h1 span').text('Yodel');
+
+// 5. Create an animation for the paragraph with the id of "flashMessage." Chain an animation that 
+$('#flashMessage')
+  // slides the message down for 1 second
+  .slideDown(1000);
+  // delays the message for 2 seconds 
+  .delay(2000);
+  // slides the message up for 1 second 
+  .slideUp(1000);
+// 6. Inside the click handler, create a working restaurant review form.
+$('#submitBtn').click(function(){
+  //  a. Use the val() method to get what's been entered into the restaurant name and restaurant review form input fields. Save both values to variables.
+  const title = $('#restaurantNameInput").val();
+  const content = $('#"restaurantReviewInput").val();
+  //  b. Insert the restaurant name value into the #newRestaurant h3 tag 
+  $("#newRestaurant h3").text(restaurantName);
+  //  c. Insert the restaurant review value into the #newRestaurant paragraph tag
+  $("#newRestaurant p").text(restaurantReview);
+});
+
+Spoiler Revealer: Breaking it down
+//Hide the spoiler on page load
+$('.spoiler span').hide();
+//When the button is pressed 
+$('spoiler button').click (function(){
+    //show the spoiler text
+    $('.spoiler span').show();
+    //hide the "Reveal Spoiler" Button
+    $('spoiler button').hide();
+});
+//create the "reveal spoiler" button
+const $button= $('<button>Reveal Spoiler</button>');
+//append to webpage --append method adds element as the last item within a parent element...adding something to beginning of element: .prepend()
+$('.spoiler').append(button);
+ --Using on() for Event Handling
+ other types of events: .click(), .mouseover() .keypress() .focus()
+ On method:
+ $('#element').on('click keypress', function() {
+     //do stuff when the element is clicked OR when a key is pressed (same code for if either of the events occurs)
+ })
+ $('spoiler button').on('click mouseleave', function(){
+    //show the spoiler text
+    $('.spoiler span').show();
+    //hide the "Reveal Spoiler" Button
+    $('spoiler button').hide();
+--Using Events with Dynamically Added Elements
+If we were to put this function at the top of the page it will not work
+$('spoiler button').click (function(){
+    //show the spoiler text
+    $('.spoiler span').show();
+    //hide the "Reveal Spoiler" Button
+    $('spoiler button').hide();
+Event delegation-attach an event listener to a parent element that fires when an event occurs on a child element
+In this case, we find the parent tag and add an event listener
+Event Propogation- when an event moves through the DOM from child to a parent element, thats called Event Propagation because the event propogates or moves through the DOM.
+In this example, an event from a button gets passed to the parent paragraph.
+$('.spoiler').on('click', 'button', function(){
+     //show the spoiler text
+    $('.spoiler span').show();
+    //hide the "Reveal Spoiler" Button
+    $('spoiler button').hide();
+});
+--The Event Object
+Each time an event listener is triggered on a webpage, we receive a bundle of useful information such as the type of event that occurred and the element that triggered the event.
+//No event object declared
+element.on('click', function(){
+    //we're not using the event object here!
+})
+element.on('click',function(event){
+    //do something with event on click
+})
+
+$('.spoiler').on('click', 'button', function(event){
+     //show the spoiler text
+    $('.spoiler span').show();
+    //hide the "Reveal Spoiler" Button
+    $(event.target).hide(); --when the button is clicked hide the target of the event/specific button that was clicked on
+});
+--Traversal
+travel across or through/ traverse the DOM
+$('li').eq(1)-- brings second object of the list
+$('li').eq(1).css({color: 'green'})
+$('li').eq(-2), counts backwards to select second to last element
+$('li').eq(1).prev().css({color: 'green'});- turns first item on the list green
+$('li').eq(1).next().next().css({color: 'green'});- turns fourth item on the list green
+
+$('.spoiler').on('click', 'button', function(event){
+     //show the spoiler text
+    $(this).prev().show();
+    //hide the "Reveal Spoiler" Button
+    $(this).hide(); --when the button is clicked hide the target of the event/specific button that was clicked on
+});
+this keyword-another way of selecting event.target
+
+
+// 1. Hide/show the text inside the #helpText span element when the user's mouse passes over the text "How are these ranked?" (Hint: use the jQuery toggle() method) 
+$('#helpText').on('mouseover', function(){
+  $('#helptext span').toggle();
+});
+
+// 2. Append a new restaurant to the restaurant list when the user enters a value into the #newRestaurant input and clicks on the #addNew button. 
+$('#addNew').on('click', function(){
+  const newRestaurant = $('#newRestaurantInput').val();
+  $('ul').append(<'li'> + newRestaurant + </li>);
+});
+  // BONUS: Before appending the new restaurant to the list, use string concatentation to make sure the new restaurant name is surrounded by an opening and closing <li> tag. 
+
+
+// 3. Add the class "strike" to the restaurant name each time it's double clicked. Use event delegation on the ul element to listen for a click event on the ul's list items
+$('ul').('dbclick', 'li', function(event){
+  $(event.target).addClass('strike');
+});
+  
+//BONUS: Refactor challenge 3 using the "this" keyword.
+//BONUS: Look up a jQuery method that will let you toggle the .strike class on and off. 
+$('ul').('dbclick', 'li', function(){
+  $(this).toggleClass('strike');
+});
+
+---jQuery-Specific Selectors
+Selectors: 
+1. CSS Selectors
+    selecting elements by tag name (h1, p, a)
+    by id or class (#footer,.profile-image)
+    pseudo class selectors (:first, :last)
+2. jQuery Specific Selectors
+    :radio, :checkbox, :password
+    :odd :even (elements on the list)
+    :visible, :hidden
+const $odd = $('a:odd');
+$odd.hide();
+const $secureLinks = $('a[href^="https://"]'); -- selects all links with http (^starts with)
+$('input[name^="add"]')- returns any names that begin with "add"
+const $pdfs = $('a[href$=".pdf"]'); --finds all anchor elements that ends with PDF
+--Changing Element Properties
+$('#my-image').attr("alt") //getter
+$('#my-image').attr("alt", "Sunset in Barecelona") //setter
+attribute is any additional informtion included on an HTML tag, images source is an attribute, as is its alt text, class and ID names are attributes
+$secureLinks.attr('target', '_blank'); --when you click on the link, brings you to a different page
+$pdfs.attr('download', true);-- downloads the pdf when clicked
+--Changing Element Styles and Classes
+$element.css("backgroungColor") //getter
+$element.css("backgroundColor", "green") //setter
+$odd.css('backgroundColor', 'lightgrey');
+$('my-element').addClass("className")
+$('my-element').removeClass("className")
+$('my-element').toggleClass("className") --toggles in between adding and removing 
+
+$secureLinks.addClass('secure'); --secure and pdf is in the css
+$pdfs.addClass('pdf');
+--Stopping the Browswer's Default Behaivor
+event.preventDefault();--when the form is submitted, dont relad the page
+$pdfs.on('click', function(event){
+  //check if checkbox has been checked
+  //if zero checkboxes are checked
+  if($('checked').length === 0{
+    //prevent download of document
+     event.preventDefault();
+    //alert the user
+    alert('Please check the box to allow PDF downloads.');
+}
+});
+//adding an unobtrusive textbox
+const $pdfCheckbox = $('<label><input type="checkbox"> Allow PDF downloads</label>');
+$('#links').append($pdfCheckbox);
+--Looping through a jQuery collection
+for(let index=0; index<$collection.length; index++){
+    const $element = $collection[index];
+    //do something with $element...
+}
+INSTEAD with jQuery
+$collection.each(function(index, element){
+    //do something with each element
+})
+$('a').each(function(index, link){
+  const url =$(link).attr('href');
+  $(link).parent().append(`(${url})`);
+  
+  same as...
+$('a').each(function(){
+  const url =$(this).attr('href');
+  $(this).parent().append(`(${url})`);
+
+  Example:
+  //1. Add a "featured" tag to the second item in the list: 
+  //  Append a new span element containing the word "Featured" to the list item
+const $featured = $("<span>Featured</span>");
+$('li').eq(1).append($featured);
+  //  Add a class of "featured" to the new span element. 
+$('li span')addClass("featured");
+
+//2. Add a class of "new" to the last item in the list. You can traverse to the last item or find a jQuery method that helps you select the last item in the list. 
+$('li'). eq(4).addClass('new'); OR
+$('li:last').addClass('new'); OR
+$('li').last().addClass('new');
+
+//3. Add an attribute to each link so that all anchor tags open in a new tab. 
+$('a').attr('target', '_blank');
+
+//4. Select and print the index and text of each anchor tag to the console
+$('a').each(function(index, item){
+  console.log(index, $(item).text());
+});
+
+//5. Refactor question #4 using the 'this' keyword. 
+$('a').each(function(index){
+  console.log(index, $(this).text());
+});
+
+Exploring JavaScript Conditionals Workshop
+if else statement conditional ebcause it executes a block of code if true or another block if false
+Branches-the flow of execution based on a condition
+Ex of branches:
+var isTrue = true;
+if(isTrue){
+    console.log('yes');
+} else{
+    console.log('no');
+}
+node two.js = yes (in console)
+
+--Switch Statement- same as if, else.
+switch(day) {
+    case 0:
+      //statements to execute
+      console.log('Sunday');
+      break;
+    case 1:
+      console.log('Monday');
+      break;
+    default:
+      console.log('Invalid Day');
+      break;
+}
+--Ternary Operator - a compact, two way branching conditional expression
+involves three expressions:
+<boolean>?<expression if true>:<expression if false> 
+isTrue ? console.log('yes') : console.log('no');
+as an expression:
+
+var isTrue = true;
+var yesOrNo = isTrue ? 'yes' : 'no';
+console.log(yesOrNo);
+--Short Circuit Evaluation -- stopping code execution as soon as possible
+make sure that both conditions are true before a value shows,
+if(isLoggedIn && isAdmin){
+    showSecretPage();
+}
+console.log(3 === 3 && 'a'==='a') is true
+last string will be showed in the console
+if anything is false, it will stop there
+
+function isAdult( age ){
+    if(age && age >=18){
+        return true;
+    } else {
+        return false;
+    }
+}
+short circuting:
+function isAdult( age ){
+    return age && age >=18;
+}
+console.log(isAdult(15));
+
+function countToFive(start){
+    start = start||1;
+    for(var i = start; i<=5; i+=1){
+        console.log(i);
+    }
+}
+countToFive(2);
+
+function greet(name){
+    name && console.log('Hi, ' +name+ '!');
+}
+greet();
